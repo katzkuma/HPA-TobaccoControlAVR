@@ -21,6 +21,7 @@ var OnHoverExample = React.createClass({
                    onSwipe={this._onSwipe}
                    onTouch={this._onTouch}
                    onFuse={{callback:this._onFuse, timeToFuse:3000}}/>
+        
       </ViroScene>
     );
   }, 

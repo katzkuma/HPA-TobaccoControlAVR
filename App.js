@@ -30,10 +30,13 @@ var sharedProps = {
 }
 
 // Sets the default scene you want for AR and VR
+// var InitialARScene = require('./js/HelloWorldSceneAR');
 var InitialARScene = require('./js/HelloWorldSceneAR');
 var InitialVRScene = require('./js/HelloWorldScene');
+var InitialLungScene = require('./js/LungScene');
 
 var UNSET = "UNSET";
+var Lung_NAVIGATOR_TYPE = "LUNG";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
 
@@ -52,6 +55,7 @@ export default class ViroSample extends Component {
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
+    this._getLungNavigator = this._getLungNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
@@ -65,6 +69,8 @@ export default class ViroSample extends Component {
       return this._getVRNavigator();
     } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
+    } else if (this.state.navigatorType == Lung_NAVIGATOR_TYPE) {
+      return this._getLungNavigator();
     }
   }
 
@@ -77,6 +83,13 @@ export default class ViroSample extends Component {
           <Text style={localStyles.titleText}>
             Choose your desired experience:
           </Text>
+
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(Lung_NAVIGATOR_TYPE)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>Lung</Text>
+          </TouchableHighlight>
 
           <TouchableHighlight style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
@@ -93,6 +106,15 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
         </View>
       </View>
+    );
+  }
+
+
+  // Returns the LungSceneNavigator which will start the Lung experience
+  _getLungNavigator() {
+    return (
+      <ViroARSceneNavigator {...this.state.sharedProps}
+        initialScene={{scene: InitialLungScene}} />
     );
   }
 
