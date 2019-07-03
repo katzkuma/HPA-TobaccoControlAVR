@@ -1,5 +1,5 @@
 {
-  "name": "hpa-tobaccocontrolavr",
+  "name": "ViroSample",
   "version": "0.0.1",
   "description": "ios and android ar, vr app for tobacco control with React Native - Viro Media",
   "main": "index.js",
@@ -43,9 +43,9 @@
   "jest": {
     "preset": "react-native"
   },
-  "engines" : { 
-    "node" : "=12.3.0",
+  "engines": {
+    "node": "=12.3.0",
     "npm": "=6.9.0"
-   },
-   "engineStrict" : true
+  },
+  "engineStrict": true
 }
