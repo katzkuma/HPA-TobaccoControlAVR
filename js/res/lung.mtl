@@ -1,0 +1,20 @@
+# File created by Digimation Material Library software, (c) Digimation, Inc., 2004
+# Creation date: 2004-06-06 12:10:28Z
+
+newmtl redbrown
+Ka 0.1469 0.0031 0
+Kd 0.2816 0.006 0
+Ks 0.3061 0.1489 0.1462
+illum 2
+Ns 141.09
+
+newmtl archwhite2
+Ka 0.2816 0.2816 0.2816
+Kd 0.8408 0.8408 0.8408
+illum 1
+
+newmtl archwhite
+Ka 0.2816 0.2816 0.2816
+Kd 0.9959 0.9959 0.9959
+illum 1
+
