@@ -7,7 +7,7 @@
 echo -en "\033]0;Ngrok\a"
 clear
 
-ngrok http 8081 -region ap
+ngrok http 8081
 
 echo "Process terminated. Press <enter> to close the window"
 read

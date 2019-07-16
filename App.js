@@ -15,6 +15,8 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
+  StatusBar,
+  Slider,
 } from 'react-native';
 
 import {
@@ -26,7 +28,7 @@ import {
  TODO: Insert your API key below
  */
 var sharedProps = {
-  apiKey:"8B6F56A8-7440-4A2F-A2F4-1352BB26BD42",
+  apiKey: "8B6F56A8-7440-4A2F-A2F4-1352BB26BD42",
 }
 
 // Sets the default scene you want for AR and VR
@@ -52,8 +54,9 @@ export default class ViroSample extends Component {
     super();
 
     this.state = {
-      navigatorType : defaultNavigatorType,
-      sharedProps : sharedProps
+      navigatorType: defaultNavigatorType,
+      sharedProps: sharedProps,
+      sliderValue: 15
     }
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -122,19 +125,46 @@ export default class ViroSample extends Component {
     );
   }
 
-// Returns the AnimationSceneNavigator which will start the Lung experience
-_getAnimationNavigator() {
-  return (
-    <ViroARSceneNavigator {...this.state.sharedProps}
-      initialScene={{scene: InitialAnimationScene}} />
+  // Returns the AnimationSceneNavigator which will start the Lung experience
+  _getAnimationNavigator() {
+    return (
+
+      <View style={localStyles.flex}>
+        <StatusBar hidden={true} />
+        <ViroARSceneNavigator {...this.state.sharedProps}
+        initialScene={{ scene: InitialAnimationScene }} />
+
+        <View style={localStyles.botMenu}>
+          <View style={tempstyles.container}>
+            <Text style={{ color: 'black' }}>Value of slider is : {this.state.sliderValue}</Text>
+            <Slider
+              maximumValue={100}
+              minimumValue={0}
+              minimumTrackTintColor="#307ecc"
+              maximumTrackTintColor="#000000"
+              step={1}
+              value={this.state.sliderValue}
+              onValueChange={(sliderValue) => this.setState({ sliderValue })}>
+            </Slider>
+          </View>
+        </View>
+      </View>
+
+
+
+
+      
+
+
+
   );
-}
+  }
 
   // Returns the LungSceneNavigator which will start the Lung experience
   _getLungNavigator() {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialLungScene}} />
+        initialScene={{ scene: InitialLungScene }} />
     );
   }
 
@@ -142,15 +172,15 @@ _getAnimationNavigator() {
   _getARNavigator() {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+        initialScene={{ scene: InitialARScene }} />
     );
   }
-  
+
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
       <ViroVRSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} onExitViro={this._exitViro}/>
+        initialScene={{ scene: InitialVRScene }} onExitViro={this._exitViro} />
     );
   }
 
@@ -159,7 +189,7 @@ _getAnimationNavigator() {
   _getExperienceButtonOnPress(navigatorType) {
     return () => {
       this.setState({
-        navigatorType : navigatorType
+        navigatorType: navigatorType
       })
     }
   }
@@ -167,60 +197,82 @@ _getAnimationNavigator() {
   // This function "exits" Viro by setting the navigatorType to UNSET.
   _exitViro() {
     this.setState({
-      navigatorType : UNSET
+      navigatorType: UNSET
     })
   }
 }
 
+
+const tempstyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  }
+});
+
+
 var localStyles = StyleSheet.create({
-  viroContainer :{
-    flex : 1,
+  viroContainer: {
+    flex: 1,
     backgroundColor: "black",
   },
-  outer : {
-    flex : 1,
+  flex: {
+    flex: 1,
+  },
+  outer: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems:'center',
+    alignItems: 'center',
     backgroundColor: "black",
   },
   inner: {
-    flex : 1,
+    flex: 1,
     flexDirection: 'column',
-    alignItems:'center',
+    alignItems: 'center',
     backgroundColor: "black",
   },
   titleText: {
     paddingTop: 30,
     paddingBottom: 20,
-    color:'#fff',
-    textAlign:'center',
-    fontSize : 25
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 25
+  },
+  botMenu: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    color:'#fff',
-    textAlign:'center',
-    fontSize : 20
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 20
   },
-  buttons : {
+  buttons: {
     height: 80,
     width: 150,
-    paddingTop:20,
-    paddingBottom:20,
+    paddingTop: 20,
+    paddingBottom: 20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor:'#68a0cf',
+    backgroundColor: '#68a0cf',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
   },
-  exitButton : {
+  exitButton: {
     height: 50,
     width: 100,
-    paddingTop:10,
-    paddingBottom:10,
+    paddingTop: 10,
+    paddingBottom: 10,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor:'#68a0cf',
+    backgroundColor: '#68a0cf',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
