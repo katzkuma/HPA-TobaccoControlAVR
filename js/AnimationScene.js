@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import {
   ViroARScene,
@@ -26,7 +26,7 @@ export default class HelloWorldSceneAR extends Component {
 
     // Set initial state here
     this.state = {
-      text : "Initializing AR..."
+      text: "Initializing AR..."
     };
 
     // bind 'this' to functions
@@ -36,48 +36,64 @@ export default class HelloWorldSceneAR extends Component {
   render() {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized} >
-       <ViroNode position={[0,-.6,-1]} dragType="FixedToWorld" onDrag={()=>{}} >
-        <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
-        <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{name: "rotate", run: true, loop: true}}/>
-        <ViroAmbientLight color={"#aaaaaa"} />
-        <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0,-1,-.2]}
-          position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
-        {<Viro3DObject
+        <ViroNode position={[0, -.6, -1]} dragType="FixedToWorld" onDrag={() => { }} >
+          <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
+          <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{ name: "rotate", run: true, loop: true }} />
+          <ViroAmbientLight color={"#aaaaaa"} />
+          <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0, -1, -.2]}
+            position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
+          {<Viro3DObject
             source={require('./res/emoji_smile/emoji_smile.vrx')}
             resources={[require('./res/emoji_smile/emoji_smile_diffuse.png'),
-                require('./res/emoji_smile/emoji_smile_normal.png'),
-                require('./res/emoji_smile/emoji_smile_specular.png')]}
+            require('./res/emoji_smile/emoji_smile_normal.png'),
+            require('./res/emoji_smile/emoji_smile_specular.png')]}
             position={[-.5, .5, -1]}
             scale={[.2, .2, .2]}
-            type="VRX" /> }
+            type="VRX" />}
 
-<Viro3DObject
+          <Viro3DObject
             source={require('./res/lung.obj')}
-           //resources={[require('./res/lung.mtl')]}
+            //resources={[require('./res/lung.mtl')]}
             position={[0, .5, -1]}
             scale={[0.05, 0.05, 0.05]}
-            materials={["grid"]} 
-            animation={{name: "rotate", run: true, loop: true}}
-            dragType="FixedDistance" onDrag={()=>{}}
+            materials={["grid"]}
+            animation={{ name: "animateColor", run: true, loop: true }}
+            dragType="FixedDistance" onDrag={() => { }}
             type="OBJ" />
 
-<Viro3DObject onLoadEnd={this._onModelLoad}
-              source={require('./res/blackpanther/object_bpanther_anim.vrx')}
-              resources={[require('./res/blackpanther/object_bpanther_Base_Color.png'),
-                          require('./res/blackpanther/object_bpanther_Metallic.png'),
-                          require('./res/blackpanther/object_bpanther_Mixed_AO.png'),
-                          require('./res/blackpanther/object_bpanther_Normal_OpenGL.png'),
-                          require('./res/blackpanther/object_bpanther_Roughness.png')]}
-              position={[.3, -.7, -1.2]}
-              scale={[.5,.5,.5]}
-              // animation={{name:this.state.animationName, run:this.state.modelAnim, loop:this.state.loopState, onFinish:this._onFinish,}}
-              animation={{name:'01',
-              run:true,
-              loop:true,
-             delay:1000}}
-              type="VRX" />
+          <Viro3DObject onLoadEnd={this._onModelLoad}
+            source={require('./res/blackpanther/object_bpanther_anim.vrx')}
+            resources={[require('./res/blackpanther/object_bpanther_Base_Color.png'),
+            require('./res/blackpanther/object_bpanther_Metallic.png'),
+            require('./res/blackpanther/object_bpanther_Mixed_AO.png'),
+            require('./res/blackpanther/object_bpanther_Normal_OpenGL.png'),
+            require('./res/blackpanther/object_bpanther_Roughness.png')]}
+            position={[.3, -.7, -1.2]}
+            scale={[.5, .5, .5]}
+            // animation={{name:this.state.animationName, run:this.state.modelAnim, loop:this.state.loopState, onFinish:this._onFinish,}}
+            animation={{
+              name: '01',
+              run: true,
+              loop: true,
+              delay: 1000
+            }}
+            type="VRX" />
 
-            </ViroNode>
+          <Viro3DObject 
+            source={require('./res/coth.vrx')}
+            //resources={[require('./res/sea lion.jpg')]}
+            position={[.3, -.7, -1.2]}
+            scale={[.5, .5, .5]}
+            // animation={{name:this.state.animationName, run:this.state.modelAnim, loop:this.state.loopState, onFinish:this._onFinish,}}
+            animation={{
+              name: 'Take 001',
+              run: true,
+              loop: true,
+              delay: 1000
+            }}
+            type="VRX" />
+
+        </ViroNode>
       </ViroARScene>
     );
   }
@@ -85,7 +101,7 @@ export default class HelloWorldSceneAR extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text : "This is a lung"
+        text: "This is a lung"
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -99,13 +115,16 @@ var styles = StyleSheet.create({
     fontSize: 30,
     color: '#ffffff',
     textAlignVertical: 'center',
-    textAlign: 'center',  
+    textAlign: 'center',
   },
 });
 
 ViroMaterials.createMaterials({
   grid: {
     diffuseTexture: require('./res/grid_bg.jpg'),
+  },
+  break: {
+    diffuseColor: "#5c4444"
   },
 });
 
@@ -115,6 +134,12 @@ ViroAnimations.registerAnimations({
       rotateY: "+=90"
     },
     duration: 500, //.25 seconds
+  },
+  animateColor: {
+    properties: {
+      material: "break"
+    },
+    duration: 10000
   },
 });
 
