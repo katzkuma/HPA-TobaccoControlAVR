@@ -19,6 +19,8 @@ import {
   Slider,
 } from 'react-native';
 
+// import Slider from '@react-native-community/slider';
+
 import {
   ViroVRSceneNavigator,
   ViroARSceneNavigator
@@ -56,7 +58,8 @@ export default class ViroSample extends Component {
     this.state = {
       navigatorType: defaultNavigatorType,
       sharedProps: sharedProps,
-      sliderValue: 15
+      viroAppProps: {sliderValue: 15, title: "HPA AR Test"}
+      // viroAppProps: {sliderValue: this.state.sliderValue, title: "HPA AR Test"}
     }
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -97,15 +100,15 @@ export default class ViroSample extends Component {
             onPress={this._getExperienceButtonOnPress(Animation_NAVIGATOR_TYPE)}
             underlayColor={'#68a0ff'} >
 
-            <Text style={localStyles.buttonText}>Animation</Text>
+            <Text style={localStyles.buttonText}>Lung</Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={localStyles.buttons}
+          {/* <TouchableHighlight style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(Lung_NAVIGATOR_TYPE)}
             underlayColor={'#68a0ff'} >
 
             <Text style={localStyles.buttonText}>Lung</Text>
-          </TouchableHighlight>
+          </TouchableHighlight> */}
 
           <TouchableHighlight style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
@@ -132,32 +135,24 @@ export default class ViroSample extends Component {
       <View style={localStyles.flex}>
         <StatusBar hidden={true} />
         <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{ scene: InitialAnimationScene }} />
+        initialScene={{ scene: InitialAnimationScene, passProps:{sliderValue:this.state.viroAppProps.sliderValue} }} viroAppProps={this.state.viroAppProps} />
 
         <View style={localStyles.botMenu}>
           <View style={tempstyles.container}>
-            <Text style={{ color: 'black' }}>Value of slider is : {this.state.sliderValue}</Text>
+            <Text style={{ color: 'black' }}>Value of slider is : {this.state.viroAppProps.sliderValue}</Text>
             <Slider
               maximumValue={100}
               minimumValue={0}
               minimumTrackTintColor="#307ecc"
               maximumTrackTintColor="#000000"
               step={1}
-              value={this.state.sliderValue}
-              onValueChange={(sliderValue) => this.setState({ sliderValue })}>
+              value={this.state.viroAppProps.sliderValue}
+              onValueChange={(sliderValue) => this.setState({ viroAppProps: {sliderValue} })}>
             </Slider>
           </View>
         </View>
       </View>
-
-
-
-
-      
-
-
-
-  );
+    );
   }
 
   // Returns the LungSceneNavigator which will start the Lung experience

@@ -1,5 +1,5 @@
 {
-  "name": "virosample",
+  "name": "ViroSample",
   "version": "0.0.1",
   "description": "ios and android ar, vr app for tobacco control with React Native - Viro Media",
   "main": "index.js",
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/katzkuma/HPA-TobaccoControlAVR#readme",
   "dependencies": {
+    "@react-native-community/slider": "^2.0.0",
     "react": "16.8.3",
     "react-native": "0.59.3",
     "react-viro": "2.14.0"

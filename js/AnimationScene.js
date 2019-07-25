@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { StyleSheet } from 'react-native';
 
@@ -26,7 +27,8 @@ export default class HelloWorldSceneAR extends Component {
 
     // Set initial state here
     this.state = {
-      text: "Initializing AR..."
+      text: "Initializing AR...",
+      // sliderValue: this.props.arSceneNavigator.viroAppProps.sliderValue
     };
 
     // bind 'this' to functions
@@ -35,9 +37,9 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-      <ViroARScene onTrackingUpdated={this._onInitialized} >
+      <ViroARScene ref="arscene" onTrackingUpdated={this._onInitialized} >
         <ViroNode position={[0, -.6, -1]} dragType="FixedToWorld" onDrag={() => { }} >
-          <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
+          <ViroText text={this.props.arSceneNavigator.viroAppProps.title} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
           <ViroBox position={[0, -.5, -1]} scale={[.3, .3, .1]} materials={["grid"]} animation={{ name: "rotate", run: true, loop: true }} />
           <ViroAmbientLight color={"#aaaaaa"} />
           <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0, -1, -.2]}
@@ -53,15 +55,15 @@ export default class HelloWorldSceneAR extends Component {
 
           <Viro3DObject
             source={require('./res/lung.obj')}
-            //resources={[require('./res/lung.mtl')]}
-            position={[0, .5, -1]}
-            scale={[0.05, 0.05, 0.05]}
+            resources={[require('./res/lung.mtl')]}
+            position={[0, -1, -1]}
+            scale={[this.props.arSceneNavigator.viroAppProps.sliderValue/1000, this.props.arSceneNavigator.viroAppProps.sliderValue/1000, this.props.arSceneNavigator.viroAppProps.sliderValue/1000]}
             materials={["grid"]}
-            animation={{ name: "animateColor", run: true, loop: true }}
+            // animation={{ name: "animateColor", run: true, loop: true }}
             dragType="FixedDistance" onDrag={() => { }}
             type="OBJ" />
 
-          <Viro3DObject onLoadEnd={this._onModelLoad}
+          {/* <Viro3DObject onLoadEnd={this._onModelLoad}
             source={require('./res/blackpanther/object_bpanther_anim.vrx')}
             resources={[require('./res/blackpanther/object_bpanther_Base_Color.png'),
             require('./res/blackpanther/object_bpanther_Metallic.png'),
@@ -77,11 +79,11 @@ export default class HelloWorldSceneAR extends Component {
               loop: true,
               delay: 1000
             }}
-            type="VRX" />
+            type="VRX" /> */}
 
           <Viro3DObject 
             source={require('./res/coth.vrx')}
-            //resources={[require('./res/sea lion.jpg')]}
+            // resources={[require('./res/sea lion.jpg')]}
             position={[.3, -.7, -1.2]}
             scale={[.5, .5, .5]}
             // animation={{name:this.state.animationName, run:this.state.modelAnim, loop:this.state.loopState, onFinish:this._onFinish,}}
